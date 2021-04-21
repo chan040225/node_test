@@ -3,7 +3,6 @@ const mongoose = require('mongoose')
 const cookieParser = require('cookie-parser')
 const config = require('./config/key')
 const app = express()
-const port = 5000
 
 const { auth } = require('./middleware/auth')
 const { User } = require('./models/User')
@@ -91,5 +90,7 @@ app.get('/logout', auth, (req, res) => {
         })
     })
 })
+
+const port = 5000
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))
