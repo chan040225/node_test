@@ -20,11 +20,9 @@ mongoose.connect(config.mongoURI, {
 
 app.get('/', (req, res) => res.send('Hello World!'))
 
-app.get('/hello', (req, res) => {
-    res.send("안녕하세요")
-})
+app.get('/api/hello', (req, res) => res.send("안녕하세요"))
 
-app.post('/register', (req, res) => {
+app.post('/api/users/register', (req, res) => {
     //회원가입 할 때 필요한 정보들을 client에서 가져오면 그것들을 데이터 베이스에 넣어준다.
 
     const user = new User(req.body)
@@ -37,7 +35,7 @@ app.post('/register', (req, res) => {
     })
 })
 
-app.post('/login', (req, res) => {
+app.post('/api/users/login', (req, res) => {
 
     const { email, password } = req.body;
 
@@ -68,7 +66,7 @@ app.post('/login', (req, res) => {
     })
 })
 
-app.get('/auth', auth, (req, res) => {
+app.get('/api/users/auth', auth, (req, res) => {
     //여기 까지 미들웨어를 통과해 왔다는 얘기는 Authentication이 true라는 말.
     res.status(200).json({
         _id: req.user._id,
@@ -82,7 +80,7 @@ app.get('/auth', auth, (req, res) => {
     })
 })
 
-app.get('/logout', auth, (req, res) => {
+app.get('/api/users/logout', auth, (req, res) => {
     User.findOneAndUpdate({_id: req.user._id}, {token: ""}, (err, user) => {
         if(err) return res.json({success: false, err})
         return res.status(200).send({
