@@ -15,7 +15,6 @@ export default function (SpecificComponent, option, adminRoute = null) {
         const dispatch = useDispatch()
 
         useEffect(() => {
-            
             dispatch(auth()).then(response => {
                 console.log(response)
 
@@ -34,9 +33,7 @@ export default function (SpecificComponent, option, adminRoute = null) {
                         }
                     }
                 }
-
             })
-
         }, [])
 
         return(
